@@ -1,18 +1,23 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DaniaTowerDefence.Towers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace DaniaTowerDefence
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Game
+    public class GameWorld : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        public List<GameObject> gameObjects = new List<GameObject>();
+        List<Student> students = new List<Student>();
+        TowerA tower;
 
-        public Game1()
+        public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -28,6 +33,10 @@ namespace DaniaTowerDefence
         {
             // TODO: Add your initialization logic here
 
+            gameObjects.Add(new TowerA());
+            gameObjects.Add(new Student());
+            Student.Add(new Student());
+
             base.Initialize();
         }
 
@@ -39,7 +48,10 @@ namespace DaniaTowerDefence
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.LoadContent(Content);
+            }
             // TODO: use this.Content to load your game content here
         }
 
@@ -61,7 +73,10 @@ namespace DaniaTowerDefence
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.Update(gameTime);
+            }
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -75,7 +90,14 @@ namespace DaniaTowerDefence
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.Draw(spriteBatch);
+            }
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
