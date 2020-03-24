@@ -29,6 +29,10 @@ namespace DaniaTowerDefence
 
         protected float attackSpeed;
 
+        public Vector2 Center
+        {
+            get { return center; }
+        }
         public abstract void LoadContent(ContentManager content);
 
         public abstract void Update(GameTime gameTime);

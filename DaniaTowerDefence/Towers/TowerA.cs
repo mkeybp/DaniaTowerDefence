@@ -64,7 +64,7 @@ namespace DaniaTowerDefence.Towers
         }
         protected void FaceTarget()
         {
-            Vector2 direction = center - target.Center;
+            Vector2 direction = Center - target.Center;
             direction.Normalize();
 
             rotation = (float)Math.Atan2(-direction.X, direction.Y);

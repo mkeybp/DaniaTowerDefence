@@ -77,6 +77,8 @@ namespace DaniaTowerDefence
             {
                 gameObject.Update(gameTime);
             }
+                List<Student> enemies = new List<Student>();
+                enemies.Add(new Student());
             // TODO: Add your update logic here
 
             base.Update(gameTime);

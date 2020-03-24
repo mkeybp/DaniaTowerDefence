@@ -27,7 +27,8 @@ namespace DaniaTowerDefence
 
         public override void Update(GameTime gameTime)
         {
-
+            this.center = new Vector2(position.X + sprite.Width / 2,
+            position.Y + sprite.Height / 2);
         }
 
         internal static void Add(Student student)
