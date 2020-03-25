@@ -29,11 +29,24 @@ namespace DaniaTowerDefence
 
         protected float attackSpeed;
 
+        protected Texture2D Texture2D;
+
+        protected Texture2D texture;
+
+        protected Vector2 velocity;
+
+
+        protected GameObject(Texture2D texture, Vector2 position)
+        {
+            this.texture = texture;
+            this.position = position;
+        }
+
         public abstract void LoadContent(ContentManager content);
 
         public abstract void Update(GameTime gameTime);
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite, position, null, Color.White, 0, origin, 1, SpriteEffects.None, 1);
         }
