@@ -45,10 +45,6 @@
     <Compile Include="GameWorld.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Student.cs" />
-    <Compile Include="Towers\TowerA.cs" />
-    <Compile Include="Towers\TowerB.cs" />
-    <Compile Include="Towers\TowerMain.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
