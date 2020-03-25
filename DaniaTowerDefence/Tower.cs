@@ -26,7 +26,7 @@ namespace DaniaTowerDefence
 
         public Tower(Texture2D towerSprite, Vector2 pos)
         {
-            radius = 1000;
+            radius = 600;
             this.position.X = 500;
             this.position.Y = 100;
             velocity = Vector2.Zero;

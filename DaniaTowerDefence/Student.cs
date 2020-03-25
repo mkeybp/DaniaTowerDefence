@@ -18,11 +18,11 @@ namespace DaniaTowerDefence
     public class Student : GameObject
     {
         protected bool alive = true;
-        public Student(Texture2D studentTexture, Vector2 pos)
+        public Student(Texture2D studentSprite, Vector2 pos)
         {
             this.position.X = 500;
             this.position.Y = 300;
-            this.sprite = studentTexture;
+            this.sprite = studentSprite;
             this.position = pos;
         }
         public override void LoadContent(ContentManager content)
@@ -32,9 +32,9 @@ namespace DaniaTowerDefence
 
         public override void Update(GameTime gameTime)
         {
+            Gravity(gameTime);
             this.center = new Vector2(position.X + sprite.Width / 2,
             position.Y + sprite.Height / 2);
-            Gravity(gameTime);
         }
         private void Move(GameTime gameTime)
         {
