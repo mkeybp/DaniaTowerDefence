@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DaniaTowerDefence;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -10,8 +11,15 @@ namespace DaniaTowerDefence
     /// </summary>
     public class GameWorld : Game
     {
+        public List<GameObject> gameObjects = new List<GameObject>();
+        public List<GameObject> gameObjectsToAdd = new List<GameObject>();
+        public List<GameObject> gameObjectsToRemove = new List<GameObject>();
+        List<Student> students = new List<Student>();
+        Student student1;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        private Tower tower;
 
         public GameWorld()
         {
@@ -29,7 +37,6 @@ namespace DaniaTowerDefence
         {
             // TODO: Add your initialization logic here
 
-
             base.Initialize();
         }
 
@@ -41,8 +48,15 @@ namespace DaniaTowerDefence
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
             // TODO: use this.Content to load your game content here
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.LoadContent(Content);
+            }
+            Texture2D towerSprite = Content.Load<Texture2D>("Tower_aim");
+            Texture2D studentSprite = Content.Load<Texture2D>("Student_test");
+            gameObjects.Add(tower = new Tower(towerSprite, new Vector2(100, 0)));
+            gameObjects.Add(student1 = new Student(studentSprite, new Vector2(500, 0)));
         }
 
         /// <summary>
@@ -63,8 +77,19 @@ namespace DaniaTowerDefence
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
             // TODO: Add your update logic here
-            //student1.CurrentHealth -= 1;
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.Update(gameTime);
+            }
+            if (tower.Target == null)
+            {
+                students.Add(student1);
+
+                tower.GetClosestStudent(students);
+            }
+            student1.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -75,6 +100,15 @@ namespace DaniaTowerDefence
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin();
+            // TODO: Add your drawing code here
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.Draw(spriteBatch);
+            }
+            student1.Draw(spriteBatch);
+            tower.Draw(spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
