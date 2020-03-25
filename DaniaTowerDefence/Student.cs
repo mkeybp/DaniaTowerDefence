@@ -11,28 +11,73 @@ namespace DaniaTowerDefence
 {
     public class Student : GameObject
     {
+        protected float startHealth;
+        protected float currentHealth;
 
-        public Student()
+        protected bool alive = true;
+
+        protected float speed = 0.5f;
+        protected int bountyGiven;
+
+        public float CurrentHealth
         {
-            this.position.X = 10;
-            this.position.Y = 150;
+            get { return currentHealth; }
+            set { currentHealth = value; }
         }
 
-        public Vector2 Center { get; internal set; }
-
-        public override void LoadContent(ContentManager content)
+        public bool IsDead
         {
-            sprite = content.Load<Texture2D>("Student_test");
+            get { return currentHealth <= 0; }
         }
 
+        public int BountyGiven
+        {
+            get { return bountyGiven; }
+        }
+
+        public Student(Texture2D texture, Vector2 position, float health, int bountyGiven, float speed)
+    : base(texture, position)
+        {
+            this.startHealth = health;
+            this.currentHealth = startHealth;
+            this.bountyGiven = bountyGiven;
+            this.speed = speed;
+        }
         public override void Update(GameTime gameTime)
         {
-            this.center = new Vector2(position.X + sprite.Width / 2,
-            position.Y + sprite.Height / 2);
-        }
+            base.Update(gameTime);
+            Gravity(gameTime);
+            if (currentHealth <= 0)
+                alive = false;
+            if(this.position.Y > 400)
+            {
+                position.Y = 0;
+            }
 
-        internal static void Add(Student student)
+        }
+        public override void Draw(SpriteBatch spriteBatch)
         {
+            if (alive)
+            {
+                float healthPercentage = (float)currentHealth / (float)startHealth;
+
+                Color color = new Color(new Vector3(1 - healthPercentage,
+                1 - healthPercentage, 1 - healthPercentage));
+
+                base.Draw(spriteBatch, color);
+            }
+        }
+        private void Move(GameTime gameTime)
+        {
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            position += ((velocity * speed) * deltaTime);
+        }
+        private void Gravity(GameTime gameTime)
+        {
+            velocity += new Vector2(0, 1);
+
+            Move(gameTime);
         }
     }
 }

@@ -13,34 +13,47 @@ namespace DaniaTowerDefence
 {
     public abstract class GameObject
     {
-        protected Texture2D[] sprites;
-
-        protected Texture2D sprite;
+        protected Texture2D texture;
 
         protected Vector2 position;
-
-        protected Vector2 origin;
+        protected Vector2 velocity;
 
         protected Vector2 center;
+        protected Vector2 origin;
 
         protected float rotation;
 
-        protected int fps;
-
-        protected float attackSpeed;
 
         public Vector2 Center
         {
             get { return center; }
         }
-        public abstract void LoadContent(ContentManager content);
 
-        public abstract void Update(GameTime gameTime);
-
-        public void Draw(SpriteBatch spriteBatch)
+        public GameObject(Texture2D tex, Vector2 pos)
         {
-            spriteBatch.Draw(sprite, position, null, Color.White, 0, origin, 1, SpriteEffects.None, 1);
-        }
+            texture = tex;
 
+            position = pos;
+            velocity = Vector2.Zero;
+
+            center = new Vector2(position.X + texture.Width /
+                2, position.Y + texture.Height / 2);
+            origin = new Vector2(texture.Width / 2, texture.Height / 2);
+        }
+        public virtual void Update(GameTime gameTime)
+        {
+            this.center = new Vector2(position.X + texture.Width / 2,
+            position.Y + texture.Height / 2);
+        }
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(texture, center, null, Color.White,
+                rotation, origin, 1.0f, SpriteEffects.None, 0);
+        }
+        public virtual void Draw(SpriteBatch spriteBatch, Color color)
+        {
+            spriteBatch.Draw(texture, center, null, color, rotation,
+                origin, 1.0f, SpriteEffects.None, 0);
+        }
     }
 }
