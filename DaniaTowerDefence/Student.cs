@@ -11,11 +11,11 @@ namespace DaniaTowerDefence
 {
     public class Student : GameObject
     {
-        float startHealth;
+        float startHealth = 100;
         float currentHealth;
         bool isAlive = true;
         float speed = 0.5f;
-        int buffGiven;
+        bool buffGiven =false;
 
         public float CurrentHealth
         {
@@ -29,12 +29,12 @@ namespace DaniaTowerDefence
             get { return currentHealth <= 0; }
         }
 
-        public int BuffGiven
+        public bool BuffGiven
         {
             get { return buffGiven; }
 
         }
-        public Student(Texture2D texture, Vector2 position, float health, int buffGiven, float speed) : base(texture, position)
+        public Student(Texture2D texture, Vector2 position, float health, bool buffGiven, float speed) : base(texture, position)
         {
             this.startHealth = health;
             this.currentHealth = startHealth;
@@ -49,7 +49,7 @@ namespace DaniaTowerDefence
 
         public override void LoadContent(ContentManager content)
         {
-            sprite = content.Load<Texture2D>("Student_test");
+            sprite = content.Load<Texture2D>("WaklDown1");
         }
 
         public override void Update(GameTime gameTime)

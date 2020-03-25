@@ -16,11 +16,15 @@ namespace DaniaTowerDefence
         public List<GameObject> gameObjects = new List<GameObject>();
         List<Student> students = new List<Student>();
         TowerA tower;
+        Level level = new Level();
 
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferWidth = level.Width * 32;
+            graphics.PreferredBackBufferHeight = level.Height * 32;
+            graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -36,6 +40,7 @@ namespace DaniaTowerDefence
             gameObjects.Add(new TowerA());
             gameObjects.Add(new Student());
             Student.Add(new Student());
+            level = new Level();
 
             base.Initialize();
         }
@@ -53,6 +58,10 @@ namespace DaniaTowerDefence
                 gameObject.LoadContent(Content);
             }
             // TODO: use this.Content to load your game content here
+            Texture2D grass = Content.Load<Texture2D>("GrassTile");
+            Texture2D path = Content.Load<Texture2D>("RoadTile");
+            level.AddTexture(grass);
+            level.AddTexture(path);
         }
 
         /// <summary>
@@ -90,7 +99,9 @@ namespace DaniaTowerDefence
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
+
+            level.Draw(spriteBatch);
 
             foreach (GameObject gameObject in gameObjects)
             {
