@@ -51,14 +51,8 @@ namespace DaniaTowerDefence.Towers
             this.position.X = 500;
             this.position.Y = 100;
             this.bulletTexture = bulletTexture;
-        }
-
-        public Tower(Texture2D texture, Vector2 position)
-        {
-
             this.texture = texture;
             this.position = position;
-
         }
 
         public bool IsInRange(Vector2 position)
