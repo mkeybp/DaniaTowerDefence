@@ -14,12 +14,13 @@ namespace DaniaTowerDefence
         public List<GameObject> gameObjects = new List<GameObject>();
         public List<GameObject> gameObjectsToAdd = new List<GameObject>();
         public List<GameObject> gameObjectsToRemove = new List<GameObject>();
-        List<Student> students = new List<Student>();
-        Student student;
+        public List<Student> students = new List<Student>();
+        public Student student;
+        public Tower tower;
+        public Bullet bullet;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private Tower tower;
 
         public GameWorld()
         {
@@ -55,8 +56,9 @@ namespace DaniaTowerDefence
             }
             Texture2D towerSprite = Content.Load<Texture2D>("Tower_aim");
             Texture2D studentSprite = Content.Load<Texture2D>("Student_test");
-            gameObjects.Add(tower = new Tower(towerSprite, new Vector2(100, 0)));
-            gameObjects.Add(student = new Student(studentSprite, Vector2.Zero));
+            Texture2D bulletSprite = Content.Load<Texture2D>("Healing_test");
+            gameObjects.Add(tower = new Tower(towerSprite, bulletSprite));
+            gameObjects.Add(student = new Student(studentSprite));
         }
 
         /// <summary>

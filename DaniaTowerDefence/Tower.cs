@@ -24,14 +24,13 @@ namespace DaniaTowerDefence
             get { return target; }
         }
 
-        public Tower(Texture2D towerSprite, Vector2 pos)
+        public Tower(Texture2D towerSprite, Texture2D bulletSprite)
         {
             radius = 600;
-            this.position.X = 500;
-            this.position.Y = 100;
+            this.position.X = 100;
+            this.position.Y = 200;
             velocity = Vector2.Zero;
             this.sprite = towerSprite;
-            this.position = pos;
         }
 
         public override void LoadContent(ContentManager content)
@@ -44,8 +43,6 @@ namespace DaniaTowerDefence
             this.center = new Vector2(position.X + sprite.Width / 2,
             position.Y + sprite.Height / 2);
 
-            //bulletTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
             if (target != null)
             {
                 FaceTarget();
@@ -53,16 +50,12 @@ namespace DaniaTowerDefence
                 if (!IsInRange(target.Center))
                 {
                     target = null;
-                    //bulletTimer = 0;
                 }
             }
         }
         public bool IsInRange(Vector2 position)
         {
-            if (Vector2.Distance(center, position) <= radius)
-                return true;
-
-            return false;
+            return Vector2.Distance(center, position) <= radius;
         }
         public void GetClosestStudent(List<Student> students)
         {

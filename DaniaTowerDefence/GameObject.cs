@@ -39,7 +39,6 @@ namespace DaniaTowerDefence
         {
             spriteBatch.Draw(sprite, center, null, Color.White, rotation, origin, 1.0f, SpriteEffects.None, 0);
         }
-
         public abstract void LoadContent(ContentManager content);
 
         public abstract void Update(GameTime gameTime);

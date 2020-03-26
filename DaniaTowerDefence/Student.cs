@@ -18,12 +18,11 @@ namespace DaniaTowerDefence
     public class Student : GameObject
     {
         protected bool alive = true;
-        public Student(Texture2D studentSprite, Vector2 pos)
+        public Student(Texture2D studentSprite)
         {
-            this.position.X = 500;
-            this.position.Y = 300;
+            this.position.X = 400;
+            this.position.Y = 200;
             this.sprite = studentSprite;
-            this.position = pos;
         }
         public override void LoadContent(ContentManager content)
         {
